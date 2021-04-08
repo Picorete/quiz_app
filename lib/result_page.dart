@@ -48,9 +48,27 @@ class _ResultPageState extends State<ResultPage> with TickerProviderStateMixin {
                 children: [
                   Center(
                     child: Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.rotationY(
-                          (1 - scaleController.value) * math.pi / 2),
+                      alignment: FractionalOffset.center,
+                      transform: Matrix4(
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                      )
+                        ..setEntry(3, 2, 0.001)
+                        ..rotateY((1 - scaleController.value) * math.pi / 2),
                       child: (this.cardFlipped)
                           ? AnimatedOpacity(
                               opacity: (!cardFlippedOut) ? 1 : 0,
@@ -84,7 +102,7 @@ class _ResultPageState extends State<ResultPage> with TickerProviderStateMixin {
   startAnimations(BuildContext context) {
     Future.delayed(Duration(milliseconds: 600), () {
       scaleController.reverse();
-      Future.delayed(Duration(milliseconds: 1000), () {
+      Future.delayed(Duration(milliseconds: 700), () {
         this.cardFlipped = true;
         scaleController.forward();
         Future.delayed(Duration(milliseconds: 1000), () {
